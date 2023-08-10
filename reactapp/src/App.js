@@ -1,160 +1,125 @@
-import React from 'react'
 import { useState } from 'react';
-import { Banner } from './components/UI/Banner/Banner';
-import  Button from './components/UI/Button/Button';
-import './quizstyle.css'
+import './App.css';
+import Button from "./components/UI/Button/Button";
+import Card from "./components/UI/Card/Card";
+import React from 'react';
+function App() {
 
-const App = () => {
-    var Questionbank = [
-        {
-            Question: "Who is the father of your nation ?",
-            Answers: [
-                { Answer: "Mahatma Gandhi", isCorrect: true },
-                { Answer: "Jawaharlal Nehru", isCorrect: false },
-                { Answer: "Donald Trump", isCorrect: false },
-                { Answer: "Barrack Obama", isCorrect: false }
-            ]
-        },
-        {
-            Question: "What color is are the leaves?",
-            Answers: [
-                { Answer: "Blue", isCorrect: false },
-                { Answer: "Red", isCorrect: false },
-                { Answer: "Yellow", isCorrect: false },
-                { Answer: "Green", isCorrect: true }
-            ]
-        }, {
-            Question: "What color is the sky ",
-            Answers: [
-                { Answer: "Blue", isCorrect: true },
-                { Answer: "Red", isCorrect: false },
-                { Answer: "Yellow", isCorrect: false },
-                { Answer: "Green", isCorrect: false }
-            ]
-        },
-        {
-            Question: "What color is the sky ?",
-            Answers: [
-                { Answer: "Blue", isCorrect: true },
-                { Answer: "Red", isCorrect: false },
-                { Answer: "Yellow", isCorrect: false },
-                { Answer: "Green", isCorrect: false }
-            ]
-        },
-        {
-            Question: "What color is the fire ?",
-            Answers: [
-                { Answer: "Blue", isCorrect: false },
-                { Answer: "Red", isCorrect: false },
-                { Answer: "Yellow", isCorrect: true },
-                { Answer: "Green", isCorrect: false }
-            ]
-        }
-    ]
+  var qCards;
+  var startBtn;
+  var resultBtn;
 
-    //useState Hook
-    const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [score, setScore] = useState(0);
-    const [showScore, setShowScore] = useState(false);
-    const [showQuiz, setShowQuiz] = useState(false);
-    const [showStart, setShowStart] = useState(false);
-    const [questionsCorrect, setQuestionsCorrect] = useState(0);
-
-  const handleResultsButton = () => {
-      if(currentQuestion === 5){
-        setShowStart(true);
-      }
-  }  
-    
-   const handleQuizButton = () => {
-        setShowQuiz(true);
-    }
-
-const handleAnswerResponse=(isCorrect)=>
-{
-    if(isCorrect)
+  const questionData = [
     {
-        setScore(score+1);
-        setQuestionsCorrect(score+1);
-    }
+      key:1,
+      question:'Who is the father of the nation ?',
+      //correctAnswerMarkUpdate,
+      //attempt,
+      options : {
+        option1: 'Mahatma Gandhi',
+        option2: 'Jawaharlal Nehru',
+        option3: 'Donald Trump',
+        option4: 'Barrack Obama'
+      },
+      answer : 'Mahatma Gandhi'
+    },
+    {
+      key : 2,
+      question : "What color is are the leaves ?",
+      //correctAnswerMarkUpdate,
+      //attempt,
+      options : {
+        option1 : "Blue",
+        option2 : "Red",
+        option3 : "Yellow",
+        option4 : "Green",
+      },
+      answer : "Green"
+    },
+    {
+      key:3,
+      question:'Who is the father of the nation ?',
+      //correctAnswerMarkUpdate,
+      //attempt,
+      options : {
+        option1: 'Mahatma Gandhi',
+        option2: 'Jawaharlal Nehru',
+        option3: 'Donald Trump',
+        option4: 'Barrack Obama'
+      },
+      answer : 'Mahatma Gandhi'
+    },
+    {
+      key:4,
+      question:'Who is the father of the nation ?',
+      //correctAnswerMarkUpdate,
+      //attempt,
+      options : {
+        option1: 'Mahatma Gandhi',
+        option2: 'Jawaharlal Nehru',
+        option3: 'Donald Trump',
+        option4: 'Barrack Obama'
+      },
+      answer : 'Mahatma Gandhi'
+    },
+    {
+      key:5,
+      question:'Who is the father of the nation ?',
+      //correctAnswerMarkUpdate,
+      //attempt,
+      options : {
+        option1: 'Mahatma Gandhi',
+        option2: 'Jawaharlal Nehru',
+        option3: 'Donald Trump',
+        option4: 'Barrack Obama'
+      },
+      answer : 'Mahatma Gandhi'
+    },
 
-   const nextQuestion= currentQuestion+1;
-   if(nextQuestion<Questionbank.length)
-   {
-    setCurrentQuestion(nextQuestion);
-   }
-   else{
-    setShowScore(true);
-   }
-}
-const text = () => {
-    const nextQuestion= currentQuestion+1;
-    if(nextQuestion < Questionbank.length){
-      return "Show Results"
-    } else {                        
-     return "Start Quiz"
-    }
-      
-}
+  ]
+  const [startFlag, setStartFlag] = useState(false);
+  const [resultFlag, setResultFlag] = useState(false);
+  const [buttonText, setButtonText] = useState('Start Quiz');
+  const [questionsCorrect, setQuestionsCorrect] = useState(0);
+  const [answered, setAnswered] = useState(0);
 
-const resetQuiz=()=>
-{
-    setCurrentQuestion(0);
-    setScore(0);
-    setShowScore(false);
-}
+  function handleStart()
+  {
+    setStartFlag(true);
+    setButtonText('Started');
+  }
 
-    return (
-        <div className='app'>
-       <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-            {showScore ? (
-                <div className='score-section'>
-                    <Banner/>
-                    You have answered {score} / {Questionbank.length} Correctly
-                    <>
-                       <Button type="submit" onClick={resetQuiz} text = "Start Quiz"></Button>
-                    </>
-                </div>
-            )
-                : (
-                    <>
-                    <h1>Quizz App</h1>
-                      {!showQuiz && <Button  onClick={() => handleQuizButton()} text = "Start Quiz"></Button>}
-                      {showQuiz && (
-                        <div>
-                          <div className='question-section'>
-                            <div className='question-count'>
-                               <span>{currentQuestion+1}</span>/{Questionbank.length}
-                            </div>
+  if(startFlag)
+  {
+    qCards = 
+    <div>
+      {
+        questionData.map((data) => 
+          <Card question= {data.question} options = {{
+            option1 : data.options.option1,
+            option2 : data.options.option2,
+            option3 : data.options.option3,
+            option4 : data.options.option4,
+          }} > </Card>)
+      }
+    </div> 
 
-                            <div className='question-text'>
-                             {Questionbank[currentQuestion].Question}
-                            </div>
-                        </div>
-
-                        <div className='answer-section'>
-                          {Questionbank[currentQuestion].Answers.map((answer)=>
-                          (
-                              <button onClick={()=>handleAnswerResponse(answer.isCorrect)}>{answer.Answer}</button>
-                          ))}
-                         <Button>{text()}
-                          </Button>
-                        </div>
-                        
-                         </div>)}
-                    </>
-                )
-            }
-
-        </div>
-    );
+    startBtn = <></>;
+  }
+  else
+  {
+    startBtn = <Button onClick = {handleStart}>Start Quiz</Button>;
+  }
+  
+  return (
+    <div className="App">
+      <h1>
+        Quizz App
+      </h1>
+      {qCards}
+      {startBtn}
+    </div>
+  );
 }
 
 export default App;
