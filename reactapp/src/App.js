@@ -127,3 +127,34 @@ const resetQuiz=()=>
                     <>
                     <h1>Quizz App</h1>
                       {!showQuiz && <Button  onClick={() => handleQuizButton()} text = "Start Quiz"></Button>}
+                      {showQuiz && (
+                        <div>
+                          <div className='question-section'>
+                            <div className='question-count'>
+                               <span>{currentQuestion+1}</span>/{Questionbank.length}
+                            </div>
+
+                            <div className='question-text'>
+                             {Questionbank[currentQuestion].Question}
+                            </div>
+                        </div>
+
+                        <div className='answer-section'>
+                          {Questionbank[currentQuestion].Answers.map((answer)=>
+                          (
+                              <button onClick={()=>handleAnswerResponse(answer.isCorrect)}>{answer.Answer}</button>
+                          ))}
+                         <Button>{text()}
+                          </Button>
+                        </div>
+                        
+                         </div>)}
+                    </>
+                )
+            }
+
+        </div>
+    );
+}
+
+export default App;
