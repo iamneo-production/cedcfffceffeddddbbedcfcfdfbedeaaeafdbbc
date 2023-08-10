@@ -1,33 +1,29 @@
-import React from "react";
-
-const CardData = () => 
-{
-    const cardTest =  
+import React, { useState } from 'react';
+import Button from '../Button/Button';
+const Card = ({key,
+    question,
+    correctAnswerMarkUpdate,
+    attempt,
+    options,
+    answer}) => {
+        const [state, setSate] = useState(false);
+        function disableBtn()
         {
-            Question: "What Color is are the leaves",
-            Answers: [
-                { Answer: "Blue", isCorrect: false },
-                { Answer: "Red", isCorrect: false },
-                { Answer: "Yellow", isCorrect: false },
-                { Answer: "Green", isCorrect: true }
-            ]
-        };
-    return <>
-    {cardTest}
-    </>;
-};
+            setSate(true);
+        }
 
 
-class Card extends React.Component{
-    render(){
-        return <>
-        <h4>What color is are the leaves ?</h4>
-        <button>Blue</button>
-        <button>Red</button>
-        <button>Yellow</button>
-        <button>Green</button>
-        </>;
+        return (
+            <div>
+            <h4>
+                {question}
+            </h4>
+            <Button onClick={disableBtn} disabled = {state} >{options.option1}</Button>
+            <Button onClick={disableBtn} disabled = {state} >{options.option2}</Button>
+            <Button onClick={disableBtn} disabled = {state} >{options.option3}</Button>
+            <Button onClick={disableBtn} disabled = {state} >{options.option4}</Button>
+            </div>
+        )
     }
-}
 
-export default Card;
+    export default Card;
