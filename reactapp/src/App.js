@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import Button from "./components/UI/Button/Button";
 import Card from "./components/UI/Card/Card";
@@ -6,6 +7,7 @@ function App() {
 
   var qCards;
   var startBtn;
+
   const questionData = [
     {
       key:1,
@@ -74,6 +76,11 @@ function App() {
     },
 
   ]
+  const [startFlag, setStartFlag] = useState(false);
+  const [resultFlag, setResultFlag] = useState(false);
+  const [buttonText, setButtonText] = useState('Start Quiz');
+  const [questionsCorrect, setQuestionsCorrect] = useState(0);
+  const [answered, setAnswered] = useState(0);
 
   function handleStart()
   {
